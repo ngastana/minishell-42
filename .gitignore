@@ -1,0 +1,7 @@
+.DS_Store
+main/*.o
+parsing/*.o
+token/*.o
+minishell
+.vscode
+.out
