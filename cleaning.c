@@ -12,16 +12,6 @@
 
 #include "minishell.h"
 
-/* void	ft_clear_token(t_token *token)
-{
-	while (token)
-	{
-		if (token->value)
-			free(token->value);
-		token = token->next;
-	}
-} */
-
 void	ft_del(void *ptr)
 {
 	free(ptr);

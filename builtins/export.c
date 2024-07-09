@@ -58,8 +58,10 @@ static void print_export(char **export)
 int ft_export(t_mini *mini, t_token *token)
 {
 	t_token	*current;
+	int		i;
  
 	current = token;
+	i = 0;
 	if (!token)
 		return (print_export(mini->export), 0);
 	else
@@ -67,6 +69,7 @@ int ft_export(t_mini *mini, t_token *token)
 		{
 			if (!check_value(current->value))
 			{
+				i++;
 				current = current->next;
 				continue ;
 			}
@@ -86,5 +89,9 @@ int ft_export(t_mini *mini, t_token *token)
 			}
 			current = current->next;
 		}
+	if (i > 0)
+		g_status = 1;
+	else
+		g_status = 0;
 	return (0);
 }

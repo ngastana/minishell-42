@@ -35,7 +35,13 @@ int	ft_echo (t_token *token)
 			cur_token = cur_token->next;
 			continue ;			
 		}
-		if (cur_token != NULL && cur_token->type == T_IDENTIFIER && cur_token->next)
+		if (ft_compare(cur_token->value, "$?"))
+			g_status = 0;
+		if (cur_token && !ft_compare(cur_token->value, "$?") && cur_token->next)
+			printf("%d ", g_status);
+		else if (cur_token && !ft_compare(cur_token->value, "$?"))
+			printf("%d", g_status);
+		else if (cur_token != NULL && cur_token->type == T_IDENTIFIER && cur_token->next)
 			printf("%s ", cur_token->value);
 		else if (cur_token != NULL && cur_token->type == T_IDENTIFIER)
 			printf("%s", cur_token->value);

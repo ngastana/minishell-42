@@ -54,9 +54,14 @@ static void	go_home(t_mini *mini)
 	update_env(mini, "OLDPWD", get_envlst(mini, "PWD"));
 	home = get_envlst(mini, "HOME");
 	if (!home)
-		ft_putstr_fd(": cd: HOME not set\n", 2);
+	{
+		g_status = 1;
+		ft_putstr_fd("cd: HOME not set\n", 2);
+		return ;
+	}
 	else if (chdir(home) == 0)
 		update_env(mini, "PWD", home);
+	g_status = 0;
 }
 
 int	ft_cd(t_mini *mini, t_token *current)
@@ -91,12 +96,13 @@ int	ft_cd(t_mini *mini, t_token *current)
         {
             ft_putstr_fd("cd: OLDPWD not set\n", 2);
         }
-        return 0;
+		g_status = 0;
+        return (0);
 	}
 	if (chdir(current->value) != 0)
 	{
-		perror("cd");
-		return (printf("a donde vas majo\n"), 1);
+		g_status = 1;
+		return (perror("cd"), 1);
 	}
 	update_env(mini, "OLDPWD", get_envlst(mini, "PWD"));
 	cwd = getcwd(NULL, 0);
@@ -107,8 +113,9 @@ int	ft_cd(t_mini *mini, t_token *current)
 	}
 	else
 	{
-		perror ("cd");
-		return (printf("a donde vas majo\n"), 1);
+		g_status = 1;
+		return (perror ("cd"), 1);
 	}
+	g_status = 0;
 	return (0);
 }

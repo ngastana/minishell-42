@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana <ngastana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:59:42 by ngastana          #+#    #+#             */
-/*   Updated: 2024/05/21 21:56:10 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:57:04 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	ft_child(t_mini *cur_mini)
 	cur_mini->comands = ft_split(aux, ' ');
 	cur_mini->path = find_path(cur_mini->enviroment);
 	cur_mini->location_paths = ft_split(cur_mini->path, ':');
-	free (aux);
 	while (cur_mini->location_paths[i] != NULL) 
 	{
 		tmp = ft_strjoin(cur_mini->location_paths[i], "/");
@@ -62,13 +61,11 @@ void	ft_child(t_mini *cur_mini)
 		if (access(location, X_OK) == 0)
 		{
 			if (execve(location, cur_mini->comands, cur_mini->enviroment) == -1)
-				printf("Error execve\n");
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);	
+				printf("Error execve\n");	
 			free(location);
 			free(tmp);
 			ft_clear(cur_mini->comands);
-			exit(EXIT_FAILURE);
+			return;
 		}
 		i++;
 		free(location);
@@ -78,8 +75,9 @@ void	ft_child(t_mini *cur_mini)
 		ft_clear(cur_mini->location_paths);
 	if (cur_mini->path)
 		free(cur_mini->path);
+	free (aux);
 	ft_clear(cur_mini->comands);
-	exit(EXIT_FAILURE);
+	return ;
 }
 
 void	create_child(t_mini *cur_mini)
@@ -126,20 +124,24 @@ void	create_child(t_mini *cur_mini)
 		}
 		if (ft_is_builtin(cur_mini->token->value))
 			ft_exec_builtin(cur_mini, cur_mini->token);
-		else
+		else if (is_command(cur_mini))
 		{
 			pid = fork();
+			signal(SIGINT, handle_sigint_2);
 			if (pid == -1)
 				return ;
 			else if (pid == 0)
 			{
-				signal(SIGINT, SIG_DFL);
-				signal(SIGQUIT, SIG_DFL);
 				ft_child(cur_mini);
-				exit(EXIT_SUCCESS);
+				exit (EXIT_SUCCESS);
 			}
 			else
 				waitpid(pid, &g_status, 0);
+			if (g_status == 256)
+				g_status = 1;
+			else if (g_status == 2)
+				g_status = 130;
+			signal_handlers();
 		}
 		while (cur_mini->token && cur_mini->token->type != T_PIPE)
 			cur_mini->token = cur_mini->token->next;

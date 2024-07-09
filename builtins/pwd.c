@@ -23,5 +23,6 @@ int	ft_pwd(void)
 	ft_putstr_fd(cwd, 1);
 	ft_putstr_fd("\n", 1);
 	free (cwd);
+	g_status = 0;
 	return (0);
 }

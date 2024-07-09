@@ -40,6 +40,7 @@ int ft_unset(t_mini *mini, t_token *token)
 	t_token *current;
 
 	current = token;
+	g_status = 0;
 	if (!current)
 		return (0);
 	else

@@ -12,12 +12,36 @@
 
 #include "../minishell.h"
 
-int ft_env(char **env)
+int ft_env(char **env, t_token *token)
 {
-	int i;
-
-	i = -1;
-	while (env[++i])
-		printf("%s\n", env[i]);
+	t_token	*current;
+	int		i;
+	int		flag;
+	
+	i = 0;
+	flag = 0;
+	g_status = 0;
+	current = token;
+	if (current == NULL)
+		while (env[i])
+			printf("%s\n", env[i++]);
+	else
+	{
+		while (current)
+		{
+			if (!ft_compare(current->value, "pwd"))
+				ft_pwd();
+			else
+			{
+				printf("env: No existe el archivo o el directorio\n");
+				flag++;
+			}
+			current = current->next;
+		}
+	}
+	if (flag > 0)
+		g_status = 127;
+	else
+		g_status = 0;
 	return (0);
 }

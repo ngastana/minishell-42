@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana <ngastana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:40:54 by ngastana          #+#    #+#             */
-/*   Updated: 2024/05/21 20:46:42 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:39:03 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@
 #define RESET      "\001\033[0m\002"
 
 #endif
-
 
 
 typedef struct s_in
@@ -126,10 +125,12 @@ int		parse_PIPE_token(t_mini *mini);
 int		parse_DLESS_token(t_mini *mini);
 
 /*EXEC_BUILTIN*/
-int		ft_env(char **env);
+int		ft_env(char **env, t_token *token);
 int		ft_pwd(void);
 int		ft_echo (t_token *token);
 int		ft_cd(t_mini *mini, t_token *current);
+int		ft_exit(t_mini *mini);
+int		ft_unset(t_mini *mini, t_token *token);
 /*EXEC_BUINTIN_EXPORT*/
 int		ft_export(t_mini *mini, t_token *token);
 void	export_sort(char **export);
@@ -138,20 +139,26 @@ int		check_value(char *str);
 char 	**add_to_matrix(char *str, char **export);
 void	change_value(char *str, char **export);
 char	**create_matrix(char **env, int flag);
-int		ft_unset(t_mini *mini, t_token *token);
 
 /*EXER_REDIR*/
 int	has_redirection(t_mini *mini);
+
+/*EXEC_UTILS*/
+int is_command(t_mini *cur_mini);
+char *get_comands(t_token *cur_token);
+char	*find_path(char **envp);
 
 /*SIGNALS*/
 void	signal_handlers(void);
 void	handle_sigint(int sig);
 void	handle_sigquit(int sig);
 void	handle_eof(t_mini *mini);
+void	handle_sigint_2(int sig);
 
 /*CLEANING*/
 void	ft_clean(t_mini *mini);
 void	ft_clear(char **matrix);
+void	ft_del(void *ptr);
 
 extern int	g_status;
 

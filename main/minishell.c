@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana <ngastana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:21:13 by ngastana          #+#    #+#             */
-/*   Updated: 2024/05/21 20:54:08 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/09 13:28:48 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	g_status;
+int	g_status = 0;
 
 int	ft_compare(const char *s1, const char *s2)
 {
@@ -41,13 +41,13 @@ static void	initialize_minishell(t_mini **mini, char **env)
 		exit(EXIT_FAILURE);
 	}
 	(*mini)->enviroment = create_matrix(env, 1);
+	change_value("SHLVL=2", (*mini)->enviroment);
 	(*mini)->export = create_matrix(env, 0);
-	g_status = 0;
 }
 
 void	take(char *input, t_mini *mini)
 {
-	if (!input || !ft_compare(input, "exit") || !ft_strncmp(input, "exit ", 5))
+	if (!input)
 	{
 		ft_putstr_fd("exit\n", 1);
 		ft_clean(mini);
@@ -67,6 +67,7 @@ int	main(int argc, char **argv, char **env)
 	mini = NULL;
 	initialize_minishell(&mini, env);
 	signal_handlers();
+	printf("PID del programa: %d\n", getpid());
 	while (1)
 	{
 		input = readline(BOLD YELLOW "Minishell-3.2$ " RESET);
@@ -75,7 +76,10 @@ int	main(int argc, char **argv, char **env)
 			take(input, mini);
 			mini->token = ft_token(input);
 			if (!mini->token || parse(mini) == 1)
+			{
+				g_status = 0;
 				continue ;
+			}
 			exec(mini);
 			ft_clear_token(&mini->token);
 			free(input);

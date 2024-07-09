@@ -69,7 +69,10 @@ int	parser_dolar(t_mini *mini)
 					if (cur_token->quotation_mark != 1)
 					{
 						i++;
-						true_value = ft_substr(cur_token->value, 0 ,i -1);
+						if (!ft_compare(cur_token->value, "$?"))
+							true_value = ft_substr(cur_token->value, 0 ,i + 1);
+						else
+							true_value = ft_substr(cur_token->value, 0 ,i -1);
 						name = ft_find_name(mini->enviroment, cur_token->value + i);
 						if (cur_token->value)
 							free (cur_token->value);

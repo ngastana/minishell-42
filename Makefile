@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ngastana <ngastana@student.42.fr>          +#+  +:+       +#+         #
+#    By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 14:58:43 by ngastana          #+#    #+#              #
-#    Updated: 2024/05/21 21:33:19 by ngastana         ###   ########.fr        #
+#    Updated: 2024/07/09 16:00:31 by ngastana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRC =	./main/minishell.c \
 		./exec/exec.c \
 		./exec/exec_builtin.c \
 		./exec/exec_redir.c \
+		./exec/exec_utils.c \
 		./token/token.c \
 		./token/handle_token.c \
 		./token/token_utils.c \
@@ -30,6 +31,7 @@ SRC =	./main/minishell.c \
 		./builtins/env.c \
 		./builtins/pwd.c \
 		./builtins/cd.c \
+		./builtins/exit.c \
 		./builtins/export.c \
 		./builtins/export_sort.c \
 		./builtins/export_utils.c \
@@ -67,7 +69,7 @@ $(NAME): $(OBJ) $(LIBNAME)
 	@echo "╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝"
 	@echo ""	
 	@echo ""
-	@echo "$(CLR_RMV)██████████████ $(CURSIVE)  Done by : \033[1;91memunoz\033[m$(CURSIVE) and \033[1;91mngastana\033[m   ███████████████"
+	@echo "$(CLR_RMV)██████████████ $(CURSIVE)  Done by : \033[1;91memunoz\033[m$(CURSIVE) and \033[1;91mngastana\033[m   ███████████████"$(RESET)
 	@echo ""
 
 $(LIBNAME):

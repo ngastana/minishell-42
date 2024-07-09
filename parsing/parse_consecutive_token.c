@@ -25,6 +25,7 @@ int parse_consecutive_token(t_mini *mini)
 			&& cur_token->next->type != T_GREAT)
 			{
 				printf("syntax error near unexpected token `newline'\n");
+				g_status = 2;
 				return (1);
 			}
 		cur_token = cur_token->next;
@@ -35,6 +36,7 @@ int parse_consecutive_token(t_mini *mini)
 		if (cur_token->type != T_IDENTIFIER && cur_token->type != T_C_PARENT)
 			if(!cur_token->next)
 			{
+				g_status = 2;
 				printf("syntax error near unexpected token `newline'\n");
 				return (1);
 			}
