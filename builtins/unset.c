@@ -14,8 +14,8 @@
 
 static void	remove_from(char *str, char **matrix)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 0;
 	while (matrix[i] != NULL)
@@ -38,9 +38,9 @@ static void	remove_from(char *str, char **matrix)
 	}
 }
 
-int ft_unset(t_mini *mini, t_token *token)
+int	ft_unset(t_mini *mini, t_token *token)
 {
-	t_token *current;
+	t_token	*current;
 
 	current = token;
 	g_status = 0;
@@ -51,7 +51,7 @@ int ft_unset(t_mini *mini, t_token *token)
 		if (search_in_matrix(current->value, mini->export))
 		{
 			remove_from(current->value, mini->export);
-			if(search_in_matrix(current->value, mini->enviroment))
+			if (search_in_matrix(current->value, mini->enviroment))
 				remove_from(current->value, mini->enviroment);
 		}
 	}

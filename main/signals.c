@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:17:13 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/09 15:56:45 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:10:38 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	handle_sigint(int sig) 
+void	handle_sigint(int sig)
 {
-
 	(void) sig;
 	ft_putstr_fd("\n", 1);
 	rl_replace_line("", 0);
@@ -22,21 +21,20 @@ void	handle_sigint(int sig)
 	rl_redisplay();
 }
 
-void	handle_sigint_2(int sig) 
+void	handle_sigint_2(int sig)
 {
-
 	(void) sig;
 	ft_putstr_fd("\n", 1);
 }
 
-void	handle_sigquit(int sig) 
+void	handle_sigquit(int sig)
 {
 	printf("quit\n");
 	(void)sig;
 	exit(EXIT_SUCCESS);
 }
 
-void	handle_eof(t_mini *mini) 
+void	handle_eof(t_mini *mini)
 {
 	printf("exit\n");
 	ft_clean(mini);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_without_token.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emunoz <emunoz@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 14:23:41 by ngastana          #+#    #+#             */
-/*   Updated: 2024/04/29 17:59:20 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/10 12:17:08 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_is_quote(char c)
 	return (0);
 }
 
-int	ft_skip_quote (char *input, int *i)
+int	ft_skip_quote(char *input, int *i)
 {
 	char	quote;
 
@@ -35,13 +35,13 @@ int	ft_skip_quote (char *input, int *i)
 	return (0);
 }
 
-int ft_without_token(char **input, t_token **token)
+int	ft_without_token(char **input, t_token **token)
 {
 	char	*tmp_input;
 	int		i;
 	int		mark;
 	char	*value;
-	t_token *new_token;
+	t_token	*new_token;
 
 	tmp_input = *input;
 	i = 0;
@@ -50,17 +50,18 @@ int ft_without_token(char **input, t_token **token)
 	{
 		if (ft_is_quote(tmp_input[i]))
 		{
-  			if (tmp_input[i] == '\'')
+			if (tmp_input[i] == '\'')
 				mark = 1;
 			else if (tmp_input[i] == '"')
 				mark = 2;
 			if (!(ft_skip_quote(tmp_input, &i)))
 			{
 				ft_clear_token(token);
+				g_status = 1;
 				return (printf("Close the quotation marks\n"), 0);
 			}
 		}
-		else	
+		else
 			i++;
 	}
 	if (mark != 0)
@@ -73,7 +74,5 @@ int ft_without_token(char **input, t_token **token)
 	if (!new_token)
 		return (free(value), 0);
 	*input += i;
-	ft_add_token(token, new_token);
-	/* free(value); */
-	return (1);
+	return (ft_add_token(token, new_token), 1);
 }

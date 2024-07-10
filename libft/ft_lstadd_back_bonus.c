@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana  < ngastana@student.42urduliz.    +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:45:43 by ngastana          #+#    #+#             */
-/*   Updated: 2023/09/27 20:41:17 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:04:56 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	{
 		*lst = new;
 		return ;
-	}	
+	}
 	ft_lstlast(*lst)-> next = new;
 }
 

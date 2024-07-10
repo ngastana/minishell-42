@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser_dolar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana <ngastana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 12:04:36 by ngastana          #+#    #+#             */
-/*   Updated: 2024/05/21 18:40:20 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 10:56:11 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-size_t ft_strlen_same(char *str)
+size_t	ft_strlen_same(char *str)
 {
 	int	i;
-	
+
 	i = 0;
-	while(str[i] != '=' && str[i] != '\0')
+	while (str[i] != '=' && str[i] != '\0')
 		i++;
 	return (i);
 }
@@ -40,18 +40,21 @@ static char	*ft_find_name(char **env, char *value)
 		if (!ft_strncmp(env[i], value, len))
 		{
 			name = ft_strdup(env[i]);
-			this = ft_substr(name, ft_strlen_same(env[i]) +1, ft_strlen(env[i]));
+			this = ft_substr(name, ft_strlen_same(env[i]) + 1,
+					ft_strlen(env[i]));
 			free (name);
-			return(this);
+			return (this);
 		}
 		i++;
 	}
-	return(this);
+	return (this);
 }
+
+// Hay que acortar
 
 int	parser_dolar(t_mini *mini)
 {
-	t_token *cur_token;
+	t_token	*cur_token;
 	int		i;
 	char	*name;
 	char	*true_value;
@@ -62,25 +65,27 @@ int	parser_dolar(t_mini *mini)
 		if (cur_token->type == T_IDENTIFIER)
 		{
 			i = 0;
-			while(cur_token->value[i])
+			while (cur_token->value[i])
 			{
-				if (cur_token->value[i] == '$' && cur_token->quotation_mark != 1 && cur_token->value[i +1] != '\0')
+				if (cur_token->value[i] == '$' && cur_token->quotation_mark != 1
+					&& cur_token->value[i +1] != '\0')
 				{
 					if (cur_token->quotation_mark != 1)
 					{
 						i++;
 						if (!ft_compare(cur_token->value, "$?"))
-							true_value = ft_substr(cur_token->value, 0 ,i + 1);
+							true_value = ft_substr(cur_token->value, 0, i + 1);
 						else
-							true_value = ft_substr(cur_token->value, 0 ,i -1);
-						name = ft_find_name(mini->enviroment, cur_token->value + i);
+							true_value = ft_substr(cur_token->value, 0, i - 1);
+						name = ft_find_name(mini->enviroment,
+								cur_token->value + i);
 						if (cur_token->value)
 							free (cur_token->value);
 						if (!name)
 						{
 							free (name);
 							cur_token->value = true_value;
-							break;
+							break ;
 						}
 					}
 					cur_token->value = ft_strjoin(true_value, name);
@@ -93,10 +98,5 @@ int	parser_dolar(t_mini *mini)
 		}
 		cur_token = cur_token->next;
 	}
-/* 	while (mini.token)
-	{
-		printf("MINI: %s\n", mini.token->value);
-		mini.token = mini.token->next;
-	} */
 	return (0);
 }

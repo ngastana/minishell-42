@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:59:42 by ngastana          #+#    #+#             */
 /*   Updated: 2024/07/10 12:31:39 by ngastana         ###   ########.fr       */
@@ -48,35 +48,44 @@ char *get_comands(t_token *cur_token)
 	return (str1);
 }
 
-void	ft_child(t_mini *cur_mini)
+ // ojito
+static	int	ft_child_utils(t_mini *cur_mini)
 {
 	int		i;
 	char	*location;
 	char	*tmp;
-	char	*aux;
 
 	i = 0;
-	aux = get_comands(cur_mini->token);
-	cur_mini->comands = ft_split(aux, ' ');
-	cur_mini->path = find_path(cur_mini->enviroment);
-	cur_mini->location_paths = ft_split(cur_mini->path, ':');
-	while (cur_mini->location_paths[i] != NULL) 
+	while (cur_mini->location_paths[i] != NULL)
 	{
 		tmp = ft_strjoin(cur_mini->location_paths[i], "/");
 		location = ft_strjoin(tmp, cur_mini->comands[0]);
 		if (access(location, X_OK) == 0)
 		{
 			if (execve(location, cur_mini->comands, cur_mini->enviroment) == -1)
-				printf("Error execve\n");	
+				printf("Error execve\n");
 			free(location);
 			free(tmp);
 			ft_clear(cur_mini->comands);
-			return;
+			return (1);
 		}
 		i++;
 		free(location);
 		free(tmp);
 	}
+	return (0);
+}
+
+void	ft_child(t_mini *cur_mini)
+{
+	char	*aux;
+
+	aux = get_comands(cur_mini->token);
+	cur_mini->comands = ft_split(aux, ' ');
+	cur_mini->path = find_path(cur_mini->enviroment);
+	cur_mini->location_paths = ft_split(cur_mini->path, ':');
+	if (ft_child_utils(cur_mini) == 1)
+		return ;
 	if (cur_mini->location_paths)
 		ft_clear(cur_mini->location_paths);
 	if (cur_mini->path)
@@ -113,7 +122,7 @@ void	create_child(t_mini *cur_mini)
 			dup2(cur_mini->outfile, STDOUT_FILENO);
 			close(cur_mini->outfile);
 		}
-		else if(cur_mini->nbr_pipex != count_pipex)
+		else if (cur_mini->nbr_pipex != count_pipex)
 		{
 			dup2(cur_mini->fd[1], STDOUT_FILENO);
 			close(cur_mini->fd[1]);

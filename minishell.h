@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:40:54 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/09 15:39:03 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 11:29:57 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,20 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-#ifndef COLORS_H
-#define COLORS_H
-
-#define BOLD       "\001\033[1m\002"
-#define UNDERLINE  "\001\033[4m\002"
-#define BLACK      "\001\033[30m\002"
-#define RED        "\001\033[31m\002"
-#define GREEN      "\001\033[32m\002"
-#define YELLOW     "\001\033[38;5;226m\002"
-#define BLUE       "\001\033[34m\002"
-#define MAGENTA    "\001\033[35m\002"
-#define CYAN       "\001\033[36m\002"
-#define WHITE      "\001\033[37m\002"
-#define RESET      "\001\033[0m\002"
-
-#endif
-
+# ifndef COLORS_H
+#  define COLORS_H
+#  define BOLD "\001\033[1m\002"
+#  define UNDERLINE "\001\033[4m\002"
+#  define BLACK "\001\033[30m\002"
+#  define RED "\001\033[31m\002"
+#  define GREEN "\001\033[32m\002"
+#  define YELLOW "\001\033[38;5;226m\002"
+#  define BLUE "\001\033[34m\002"
+#  define MAGENTA "\001\033[35m\002"
+#  define CYAN "\001\033[36m\002"
+#  define WHITE "\001\033[37m\002"
+#  define RESET "\001\033[0m\002"
+# endif
 
 typedef struct s_in
 {
@@ -93,7 +90,6 @@ typedef struct s_mini
 	int		fd[2];
 }	t_mini;
 
-
 /*MAIN*/
 int		main(int argc, char **argv, char **env);
 int		ft_compare(const char *s1, const char *s2);
@@ -119,33 +115,33 @@ void	ft_clear_token(t_token **token);
 /*PARSING*/
 int		parse(t_mini *mini);
 int		parser_dolar(t_mini *mini);
-size_t 	ft_strlen_same(char *str);
+size_t	ft_strlen_same(char *str);
 int		parse_consecutive_token(t_mini *mini);
-int		parse_PIPE_token(t_mini *mini);
-int		parse_DLESS_token(t_mini *mini);
+int		parse_pipe_token(t_mini *mini);
+int		parse_dless_token(t_mini *mini);
 
 /*EXEC_BUILTIN*/
 int		ft_env(char **env, t_token *token);
 int		ft_pwd(void);
-int		ft_echo (t_token *token);
+int		ft_echo(t_token *token);
 int		ft_cd(t_mini *mini, t_token *current);
 int		ft_exit(t_mini *mini);
 int		ft_unset(t_mini *mini, t_token *token);
 /*EXEC_BUINTIN_EXPORT*/
 int		ft_export(t_mini *mini, t_token *token);
 void	export_sort(char **export);
-int 	search_in_matrix(char *str, char **export);
+int		search_in_matrix(char *str, char **export);
 int		check_value(char *str);
-char 	**add_to_matrix(char *str, char **export);
+char	**add_to_matrix(char *str, char **export);
 void	change_value(char *str, char **export);
 char	**create_matrix(char **env, int flag);
 
 /*EXER_REDIR*/
-int	has_redirection(t_mini *mini);
+int		has_redirection(t_mini *mini);
 
 /*EXEC_UTILS*/
-int is_command(t_mini *cur_mini);
-char *get_comands(t_token *cur_token);
+int		is_command(t_mini *cur_mini);
+char	*get_comands(t_token *cur_token);
 char	*find_path(char **envp);
 
 /*SIGNALS*/
