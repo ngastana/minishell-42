@@ -6,7 +6,7 @@
 /*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 11:41:15 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 09:59:38 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/10 13:56:09 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	parse_dless_token(t_mini *mini)
 	t_token	*cur_token;
 
 	cur_token = mini->token;
-	while (cur_token)
+	while (cur_token && cur_token->next)
 	{
 		if (cur_token->type == T_DLESS)
 		{
@@ -46,6 +46,7 @@ int	parse_dless_token(t_mini *mini)
 				cur_token = cur_token->next;
 				if (dless_function(cur_token) == 1)
 					return (1);
+				return (2);
 			}
 		}
 		cur_token = cur_token->next;
