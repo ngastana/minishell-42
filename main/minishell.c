@@ -6,7 +6,7 @@
 /*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:21:13 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 09:43:16 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/10 09:50:01 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,5 @@ int	main(int argc, char **argv, char **env)
 		else
 			handle_eof(mini);
 	}
-	printf("hola\n");
 	return (0);
 }

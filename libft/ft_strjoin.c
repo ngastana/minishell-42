@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana  < ngastana@student.42urduliz.    +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 16:33:22 by ngastana          #+#    #+#             */
-/*   Updated: 2023/09/28 18:47:57 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:05:22 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strjoin(char const	*s1, char const	*s2)
 		return (0);
 	i = 0;
 	while (s1[i] != '\0')
-	{	
+	{
 		str[i] = s1[i];
 		i++;
 	}

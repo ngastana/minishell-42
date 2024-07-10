@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana <ngastana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:34:57 by ngastana          #+#    #+#             */
-/*   Updated: 2024/05/21 18:10:11 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 11:06:45 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_env(char **env, t_token *token)
+int	ft_env(char **env, t_token *token)
 {
 	t_token	*current;
 	int		i;
-	int		flag;
-	
+
 	i = 0;
-	flag = 0;
 	g_status = 0;
 	current = token;
 	if (current == NULL)
@@ -34,14 +32,10 @@ int ft_env(char **env, t_token *token)
 			else
 			{
 				printf("env: No existe el archivo o el directorio\n");
-				flag++;
+				g_status = 127;
 			}
 			current = current->next;
 		}
 	}
-	if (flag > 0)
-		g_status = 127;
-	else
-		g_status = 0;
 	return (0);
 }

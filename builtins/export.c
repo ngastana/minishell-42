@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana <ngastana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 16:09:42 by ngastana          #+#    #+#             */
-/*   Updated: 2024/05/21 18:15:32 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 11:24:25 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char **create_matrix(char **env, int flag)
+char	**create_matrix(char **env, int flag)
 {
 	int		i;
 	char	**export;
-	
+
 	i = 0;
 	while (env[i] != NULL)
 		i++;
@@ -31,9 +31,9 @@ char **create_matrix(char **env, int flag)
 	return (export);
 }
 
-static void print_export(char **export)
+static void	print_export(char **export)
 {
-	int i;
+	int	i;
 	int	j;
 
 	i = -1;
@@ -55,43 +55,48 @@ static void print_export(char **export)
 	}
 }
 
-int ft_export(t_mini *mini, t_token *token)
+static void	ft_export_utils(t_mini *mini, t_token *current)
+{
+	if (!search_in_matrix(current->value, mini->export))
+	{
+		mini->export = add_to_matrix(current->value, mini->export);
+		if (ft_strchr(current->value, '='))
+			mini->enviroment = add_to_matrix(current->value,
+					mini->enviroment);
+	}
+	else
+	{
+		change_value(current->value, mini->export);
+		if (search_in_matrix(current->value, mini->enviroment))
+			change_value(current->value, mini->enviroment);
+		else if (ft_strchr(current->value, '='))
+			mini->enviroment = add_to_matrix(current->value,
+					mini->enviroment);
+	}
+}
+
+int	ft_export(t_mini *mini, t_token *token)
 {
 	t_token	*current;
-	int		i;
- 
+
 	current = token;
-	i = 0;
+	g_status = 0;
 	if (!token)
 		return (print_export(mini->export), 0);
 	else
+	{
 		while (current)
 		{
 			if (!check_value(current->value))
 			{
-				i++;
+				g_status = 1;
 				current = current->next;
 				continue ;
 			}
-			else if (!search_in_matrix(current->value, mini->export))
-			{
-			 mini->export = add_to_matrix(current->value, mini->export);
-				if (ft_strchr(current->value, '='))
-				 mini->enviroment = add_to_matrix(current->value, mini->enviroment);
-			}
 			else
-			{
-				change_value(current->value, mini->export);
-				if (search_in_matrix(current->value, mini->enviroment))
-					change_value(current->value, mini->enviroment);
-				else if (ft_strchr(current->value, '='))
-				 mini->enviroment = add_to_matrix(current->value, mini->enviroment);
-			}
+				ft_export_utils(mini, current);
 			current = current->next;
 		}
-	if (i > 0)
-		g_status = 1;
-	else
-		g_status = 0;
+	}
 	return (0);
 }

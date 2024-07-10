@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana  < ngastana@student.42urduliz.    +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:37:59 by ngastana          #+#    #+#             */
-/*   Updated: 2024/04/05 13:09:16 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:17:24 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_is_separator(char *s)
 
 char	*ft_skip_spaces(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i] != '\0' && ft_space(line[i]))
@@ -41,10 +41,10 @@ char	*ft_skip_spaces(char *line)
 void	ft_clear_token(t_token **token)
 {
 	t_token	*current_token;
-	t_token *next_token;
+	t_token	*next_token;
 
 	if (!*token)
-		return;
+		return ;
 	current_token = *token;
 	while (current_token != NULL)
 	{

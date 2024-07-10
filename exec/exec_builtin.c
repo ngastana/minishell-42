@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:25:08 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/09 13:24:55 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 11:28:31 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_exec_builtin(t_mini *mini, t_token *token)
 {
-	t_token *current;
-	
+	t_token	*current;
+
 	current = token;
 	if (ft_compare(current->value, "echo") == 0)
 		return (ft_echo(token));

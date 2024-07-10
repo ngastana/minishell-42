@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana  < ngastana@student.42urduliz.    +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:03:12 by ngastana          #+#    #+#             */
-/*   Updated: 2024/05/01 19:21:48 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:04:11 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,4 @@ void	ft_clean(t_mini *mini)
 	ft_clear(mini->export);
 	ft_clear_token(&mini->token);
 	free(mini);
- 	// ft_lstclear((t_list**)mini->token,ft_del);
-	// ft_lstclear((t_list**)mini->parsed,ft_del);
 }
