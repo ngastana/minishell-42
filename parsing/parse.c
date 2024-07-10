@@ -16,7 +16,7 @@ int	parse(t_mini *mini)
 {
 	if (parse_consecutive_token(mini) == 1)
 		return (1);
-	if (parse_dless_token(mini) == 2)
+	if (parse_dless_token(mini) == 1)
 		return (1);
 	if (parser_dolar(mini) == 1)
 		return (1);

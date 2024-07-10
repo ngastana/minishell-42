@@ -8,3 +8,5 @@ builtins/*.o
 minishell
 .vscode
 .out
+*.o
+*.a

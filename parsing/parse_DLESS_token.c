@@ -32,7 +32,7 @@ int	parse_dless_token(t_mini *mini)
 	cur_token = mini->token;
 	while (cur_token && cur_token->next)
 	{
-		if (cur_token->type == T_DLESS)
+		if (cur_token && cur_token->type == T_DLESS)
 		{
 			if (cur_token->next != NULL
 				&& cur_token->next->type != T_IDENTIFIER)
@@ -46,7 +46,8 @@ int	parse_dless_token(t_mini *mini)
 				cur_token = cur_token->next;
 				if (dless_function(cur_token) == 1)
 					return (1);
-				return (2);
+				if (cur_token->next == NULL)
+					return (1);
 			}
 		}
 		cur_token = cur_token->next;
