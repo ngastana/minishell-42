@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana  < ngastana@student.42urduliz.    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:03:20 by ngastana          #+#    #+#             */
-/*   Updated: 2023/09/27 19:49:58 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 09:58:22 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	**ft_split(char const *s, char c)
 	char	**matrix;
 
 	if (s == NULL)
-		return (0);
+		return (NULL);
 	matrix = malloc(sizeof(char *) * (diferentes(s, c) + 1));
 	if (matrix == NULL)
 		return (NULL);

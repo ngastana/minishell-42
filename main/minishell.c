@@ -6,7 +6,7 @@
 /*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:21:13 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 09:50:01 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/10 11:35:57 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	initialize_minishell(t_mini **mini, char **env)
 	}
 	(*mini)->enviroment = create_matrix(env, 1);
 	change_value("SHLVL=2", (*mini)->enviroment);
-	(*mini)->export = create_matrix(env, 0);
+	(*mini)->export = create_matrix(env, 1);
 }
 
 void	take(char *input, t_mini *mini)

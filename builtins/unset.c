@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 15:58:57 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 11:28:54 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/10 12:31:05 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ static void	remove_from(char *str, char **matrix)
 			len = ft_strlen_same(matrix[i]);
 		if (!ft_strncmp(matrix[i], str, len))
 		{
-			matrix[i] = NULL;
+			while (matrix[i] != NULL)
+			{
+				matrix[i] = matrix[i +1];
+				i++;
+			}
 			free(matrix[i]);
 			return ;
 		}
