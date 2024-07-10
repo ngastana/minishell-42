@@ -6,49 +6,12 @@
 /*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:59:42 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 12:31:39 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 13:14:27 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*find_path(char **envp)
-{
-	int	i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (envp && ft_strncmp("PATH", envp[i], 4))
-		i++;
-	while (envp && envp[j] != NULL)
-		j++;
-	if (i == 0 || i == j)
-		return (NULL);
-	return (ft_strdup(envp[i] + 5));
-}
-
-char *get_comands(t_token *cur_token)
-{
-	char *str1;
-	t_token	*token;
-
-	token = cur_token;
-	str1 = ft_strdup(token->value);
-	while (token->next && (token->next->type == T_IDENTIFIER || token->next->type == T_LESS))
-	{
-		token = token->next;
-		if (token->next && token->type == T_LESS)
-			token = token->next;
-		str1 = ft_strjoin(str1, " ");
-		str1 = ft_strjoin(str1, token->value);
-	}
-	if (token->next)
-		token = token->next;
-	return (str1);
-}
-
- // ojito
 static	int	ft_child_utils(t_mini *cur_mini)
 {
 	int		i;
