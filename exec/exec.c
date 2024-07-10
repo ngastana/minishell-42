@@ -6,7 +6,7 @@
 /*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:59:42 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/09 15:57:04 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:31:39 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,16 @@
 char	*find_path(char **envp)
 {
 	int	i;
+	int j;
 
 	i = 0;
+	j = 0;
 	while (envp && ft_strncmp("PATH", envp[i], 4))
 		i++;
+	while (envp && envp[j] != NULL)
+		j++;
+	if (i == 0 || i == j)
+		return (NULL);
 	return (ft_strdup(envp[i] + 5));
 }
 

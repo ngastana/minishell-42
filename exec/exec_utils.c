@@ -6,7 +6,7 @@
 /*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:59:42 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/09 15:39:53 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:34:48 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ int is_command(t_mini *cur_mini)
 	aux = get_comands(cur_mini->token);
 	cur_mini->comands = ft_split(aux, ' ');
 	cur_mini->path = find_path(cur_mini->enviroment);
+	if (!cur_mini->path)
+	{
+		g_status = 127;
+		return (printf("%s: Not such file or directory\n", cur_mini->comands[0]), 0);
+	}
 	cur_mini->location_paths = ft_split(cur_mini->path, ':');
 	while (cur_mini->location_paths[i] != NULL)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana <ngastana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 15:58:57 by ngastana          #+#    #+#             */
-/*   Updated: 2024/05/21 18:16:12 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:31:05 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,16 @@ static void	remove_from(char *str, char **matrix)
 			len = ft_strlen_same(matrix[i]);
 		if (!ft_strncmp(matrix[i], str, len))
 		{
-			matrix[i] = NULL;
+			while (matrix[i] != NULL)
+			{
+				matrix[i] = matrix[i +1];
+				i++;
+			}
 			free(matrix[i]);
 			return ;
 		}
 		i++;
 	}
-	
 }
 
 int ft_unset(t_mini *mini, t_token *token)

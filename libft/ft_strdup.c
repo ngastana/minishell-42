@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana  < ngastana@student.42urduliz.    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 16:18:49 by ngastana          #+#    #+#             */
-/*   Updated: 2023/09/18 17:36:30 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:31:12 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "stdio.h"
 
 char	*ft_strdup(const char *s)
 {
@@ -18,8 +19,10 @@ char	*ft_strdup(const char *s)
 	char		*arr;
 
 	i = 0;
+	if (s == NULL)
+		return (NULL);
 	arr = malloc (sizeof(char) * (ft_strlen(s) +1));
-	if (arr == NULL)
+	if (!arr || arr == NULL)
 		return (NULL);
 	while (s[i] != '\0')
 	{
@@ -29,12 +32,3 @@ char	*ft_strdup(const char *s)
 	arr[i] = '\0';
 	return (arr);
 }
-
-/* int	main()
-{
-	const char	*s;
-
-	s = "amatxu";
-	printf("%s\n", strdup(s));
-}
- */
