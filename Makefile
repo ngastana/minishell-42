@@ -75,6 +75,7 @@ $(NAME): $(OBJ) $(LIBNAME)
 $(LIBNAME):
 	@echo "$(BLUE)██████████████████████████ Making LIBFT ████████████████████████$(RESET)"
 	@$(MAKE) -C ./libft all > /dev/null
+	@$(MAKE) bonus -C ./libft all > /dev/null
 	@cp ./libft/libft.a $(LIBNAME)
 
 %.o: %.c

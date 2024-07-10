@@ -82,7 +82,8 @@ int	is_command(t_mini *cur_mini)
 	if (!cur_mini->path)
 	{
 		g_status = 127;
-		return (printf("%s: Not such file or directory\n", cur_mini->comands[0]), 0);
+		return (printf("%s: Not such file or directory\n",
+				cur_mini->comands[0]), 0);
 	}
 	cur_mini->location_paths = ft_split(cur_mini->path, ':');
 	while (cur_mini->location_paths[i] != NULL)
