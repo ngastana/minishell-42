@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:03:12 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 12:04:11 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/10 19:31:05 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_clear(char **matrix)
 		free (matrix[m]);
 		m++;
 	}
+	free (matrix);
 	matrix = NULL;
 }
 
