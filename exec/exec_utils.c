@@ -6,7 +6,7 @@
 /*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:59:42 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 13:14:38 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/10 20:27:10 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,20 @@ char	*get_comands(t_token *cur_token)
 
 static int	ft_is_command_utils(t_mini *cur_mini, char *aux, int i)
 {
+	if (cur_mini->path)
+		free(cur_mini->path);
 	if (cur_mini->location_paths[i] == NULL)
 	{
 		g_status = 127;
 		printf("%s: command not found\n", aux);
+		ft_clear(cur_mini->location_paths);
+		if (aux)
+			free(aux);
 		return (0);
 	}
-	if (cur_mini->location_paths)
-		ft_clear(cur_mini->location_paths);
-	if (cur_mini->path)
-		free(cur_mini->path);
-	free(aux);
-	ft_clear(cur_mini->comands);
+	ft_clear(cur_mini->location_paths);
+	if (aux)
+		free(aux);
 	return (1);
 }
 
@@ -82,8 +84,10 @@ int	is_command(t_mini *cur_mini)
 	if (!cur_mini->path)
 	{
 		g_status = 127;
-		return (printf("%s: Not such file or directory\n",
-				cur_mini->comands[0]), 0);
+		printf("%s: Not such file or directory\n", cur_mini->comands[0]);
+		ft_clear(cur_mini->comands);
+		free(aux);
+		return (0);
 	}
 	cur_mini->location_paths = ft_split(cur_mini->path, ':');
 	while (cur_mini->location_paths[i] != NULL)
@@ -91,10 +95,19 @@ int	is_command(t_mini *cur_mini)
 		tmp = ft_strjoin(cur_mini->location_paths[i], "/");
 		location = ft_strjoin(tmp, cur_mini->comands[0]);
 		if (access(location, X_OK) == 0)
+		{
+			ft_clear(cur_mini->comands);
+			ft_clear(cur_mini->location_paths);
+			free(aux);
+			free(cur_mini->path);
+			free(location);
+			free(tmp);
 			return (1);
+		}
 		i++;
 		free(location);
 		free(tmp);
 	}
+	ft_clear(cur_mini->comands);
 	return (ft_is_command_utils(cur_mini, aux, i));
 }
