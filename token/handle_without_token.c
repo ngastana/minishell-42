@@ -6,7 +6,7 @@
 /*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 14:23:41 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 12:17:08 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/11 15:10:29 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	ft_without_token(char **input, t_token **token)
 		value = ft_substr(tmp_input, 1, i -2);
 	else
 		value = ft_substr(tmp_input, 0, i);
+	tmp_input = NULL;
 	if (!value)
 		return (0);
 	new_token = ft_add_new_token(value, mark, T_IDENTIFIER);

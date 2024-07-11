@@ -6,7 +6,7 @@
 /*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:21:13 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 13:50:19 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/11 15:16:42 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	main(int argc, char **argv, char **env)
 			if (!mini->token || parse(mini) == 1)
 			{
 				g_status = 0;
+				free(input);
+				ft_clear_token(&mini->token);
 				continue ;
 			}
 			exec(mini);
@@ -86,6 +88,8 @@ int	main(int argc, char **argv, char **env)
 		}
 		else
 			handle_eof(mini);
+		ft_clear_token(&mini->token);
 	}
+	free(mini);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:37:59 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/11 13:01:19 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/11 13:21:42 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	ft_clear_token(t_token **token)
 	current_token = *token;
 	while (current_token != NULL)
 	{
-		free (current_token->value);
+		free(current_token->value);
 		next_token = current_token->next;
-		free (current_token);
+		free(current_token);
 		current_token = next_token;
 	}
 	*token = NULL;

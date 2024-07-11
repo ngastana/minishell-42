@@ -6,7 +6,7 @@
 /*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:48:04 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/11 13:02:00 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/11 15:18:51 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ void	ft_add_token(t_token **token, t_token *new_token)
 {
 	t_token	*current;
 
-	if (!*token)
+	if (!(*token))
 	{
-		ft_clear_token(token);
-		*token = NULL;
 		*token = new_token;
 		return ;
 	}
