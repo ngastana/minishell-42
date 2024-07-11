@@ -38,6 +38,7 @@ int	ft_skip_quote(char *input, int *i)
 int	ft_without_token(char **input, t_token **token)
 {
 	char	*tmp_input;
+	//char 	**input_2;
 	int		i;
 	int		mark;
 	char	*value;
@@ -74,6 +75,7 @@ int	ft_without_token(char **input, t_token **token)
 	new_token = ft_add_new_token(value, mark, T_IDENTIFIER);
 	if (!new_token)
 		return (free(value), 0);
+	//input_2 = &input[i];
 	*input += i;
 	return (ft_add_token(token, new_token), 1);
 }

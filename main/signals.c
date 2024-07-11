@@ -34,12 +34,13 @@ void	handle_sigquit(int sig)
 	exit(EXIT_SUCCESS);
 }
 
-void	handle_eof(t_mini *mini)
+void	handle_eof(t_mini *mini, char *input_prueba)
 {
 	printf("exit\n");
 	ft_clear(mini->enviroment);
 	ft_clear(mini->export);
 	ft_clear_token(&mini->token);
+	free(input_prueba);
 	free(mini);
 	rl_clear_history();
 	exit(EXIT_SUCCESS);

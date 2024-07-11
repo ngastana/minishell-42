@@ -47,10 +47,13 @@ static void	initialize_minishell(t_mini **mini, char **env)
 
 void	take(char *input, t_mini *mini)
 {
-	if (!input)
+	if (!input || ft_strncmp(input, "exit", 5) == 0)
 	{
 		ft_putstr_fd("exit\n", 1);
-		ft_clean(mini);
+		free(input);
+		ft_clear(mini->enviroment);
+		ft_clear(mini->export);
+		free(mini);
 		rl_clear_history();
 		exit (1);
 	}
@@ -61,6 +64,7 @@ void	take(char *input, t_mini *mini)
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
+	//char	*input_prueba;
 	t_mini	*mini;
 
 	((void)argc, (void)argv);
@@ -87,7 +91,7 @@ int	main(int argc, char **argv, char **env)
 			free(input);
 		}
 		else
-			handle_eof(mini);
+			handle_eof(mini, input);
 		ft_clear_token(&mini->token);
 	}
 	free(mini);
