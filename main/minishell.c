@@ -56,7 +56,7 @@ void	take(char *input, t_mini *mini)
 		ft_clear_token(&mini->token);
 		free(mini);
 		rl_clear_history();
-		exit (1);
+		exit (0);
 	}
 	if (input)
 		add_history(input);
@@ -65,7 +65,6 @@ void	take(char *input, t_mini *mini)
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
-	//char	*input_prueba;
 	t_mini	*mini;
 
 	((void)argc, (void)argv);

@@ -14,14 +14,20 @@
 
 static int	dless_function(t_token	*cur_token)
 {
+	char *input;
 	if (cur_token == NULL)
 	{
 		g_status = 2;
 		printf("syntax error near unexpected token `newline'\n");
 		return (1);
 	}
-	while (ft_compare(readline(BOLD YELLOW "> " RESET), cur_token->value))
-		write(1, "", 1);
+	while(1)
+	{
+		input = readline(BOLD YELLOW "> " RESET);
+		if (!ft_compare(input, cur_token->value))
+ 			return (free(input), 0);
+		free(input);
+	}
 	return (0);
 }
 
