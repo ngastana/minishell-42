@@ -37,7 +37,6 @@ void	handle_eof(t_mini *mini, char *input)
 	printf("exit\n");
 	ft_clear(mini->enviroment);
 	ft_clear(mini->export);
-	ft_clear_token(&mini->token);
 	free(input);
 	free(mini);
 	rl_clear_history();
