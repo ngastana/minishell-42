@@ -148,7 +148,7 @@ char	*find_path(char **envp);
 void	signal_handlers(void);
 void	handle_sigint(int sig);
 void	handle_sigquit(int sig);
-void	handle_eof(t_mini *mini);
+void	handle_eof(t_mini *mini, char *input_prueba);
 void	handle_sigint_2(int sig);
 
 /*CLEANING*/
