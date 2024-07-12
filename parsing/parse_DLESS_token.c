@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_DLESS_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 11:41:15 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 13:56:09 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/10 21:50:37 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	parse_dless_token(t_mini *mini)
 	t_token	*cur_token;
 
 	cur_token = mini->token;
-	while (cur_token && cur_token->next)
+	while (cur_token)
 	{
-		if (cur_token && cur_token->type == T_DLESS)
+		if (cur_token->type == T_DLESS)
 		{
 			if (cur_token->next != NULL
 				&& cur_token->next->type != T_IDENTIFIER)
@@ -47,7 +47,7 @@ int	parse_dless_token(t_mini *mini)
 				if (dless_function(cur_token) == 1)
 					return (1);
 				if (cur_token->next == NULL)
-					return (1);
+					return (0);
 			}
 		}
 		cur_token = cur_token->next;

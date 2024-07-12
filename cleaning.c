@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cleaning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:03:12 by ngastana          #+#    #+#             */
 /*   Updated: 2024/07/10 21:44:20 by emunoz           ###   ########.fr       */

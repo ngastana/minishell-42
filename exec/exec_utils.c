@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:59:42 by ngastana          #+#    #+#             */
 /*   Updated: 2024/07/10 20:27:10 by emunoz           ###   ########.fr       */
@@ -93,7 +93,8 @@ int	is_command(t_mini *cur_mini)
 	while (cur_mini->location_paths[i] != NULL)
 	{
 		tmp = ft_strjoin(cur_mini->location_paths[i], "/");
-		location = ft_strjoin(tmp, cur_mini->comands[0]);
+		if (cur_mini->comands)
+			location = ft_strjoin(tmp, cur_mini->comands[0]);
 		if (access(location, X_OK) == 0)
 		{
 			ft_clear(cur_mini->comands);
