@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:59:42 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 13:53:56 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/10 22:06:32 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,13 @@ void	create_child(t_mini *cur_mini)
 			dup2(cur_mini->fd[0], STDIN_FILENO);
 			close(cur_mini->fd[0]);
 		}
-		if (ft_is_builtin(cur_mini->token->value))
+		if (cur_mini->token->type == T_GREAT || cur_mini->token->type == T_LESS)
+			cur_mini->token = cur_mini->token->next->next;
+		if (cur_mini->token && cur_mini->token->type == T_DLESS && cur_mini->token->next->next)
+			cur_mini->token = cur_mini->token->next->next;
+		if (cur_mini->token && ft_is_builtin(cur_mini->token->value))
 			ft_exec_builtin(cur_mini, cur_mini->token);
-		else if (is_command(cur_mini))
+		else if (cur_mini->token && is_command(cur_mini))
 		{
 			pid = fork();
 			signal(SIGINT, handle_sigint_2);
