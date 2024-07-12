@@ -6,7 +6,7 @@
 /*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:17:13 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 12:10:38 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/11 14:40:06 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,14 @@ void	handle_sigquit(int sig)
 	exit(EXIT_SUCCESS);
 }
 
-void	handle_eof(t_mini *mini)
+void	handle_eof(t_mini *mini, char *input_prueba)
 {
 	printf("exit\n");
-	ft_clean(mini);
+	ft_clear(mini->enviroment);
+	ft_clear(mini->export);
+	ft_clear_token(&mini->token);
+	free(input_prueba);
+	free(mini);
 	rl_clear_history();
 	exit(EXIT_SUCCESS);
 }

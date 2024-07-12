@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+         #
+#    By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 14:58:43 by ngastana          #+#    #+#              #
-#    Updated: 2024/07/09 16:00:31 by ngastana         ###   ########.fr        #
+#    Updated: 2024/07/11 14:57:17 by emunoz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRC =	./main/minishell.c \
 
 OBJ = $(SRC:.c=.o)
 
-FLAGS = -Wall -Wextra -Werror -g3
+FLAGS = -Wall -Wextra -Werror -g3 -fPIE -fsanitize=address
 READFLAG =  -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
 READINCLUDE = -I/Users/$(USER)/.brew/opt/readline/include
 
@@ -57,7 +57,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBNAME)
 	@echo "$(BLUE)████████████████████████ Making minishell ██████████████████████$(YELLOW)"
-	@gcc $(FLAGS)   $(OBJ) $(LIBNAME) $(READFLAG)  -o $(NAME)
+	@gcc $(FLAGS)   $(OBJ) $(LIBNAME) $(READFLAG) -o $(NAME)
 	@echo "$(CLR_RMV)███████████████████████ Compiling is DONE ██████████████████████$(RESET)"
 	@echo ""
 	@echo ""
