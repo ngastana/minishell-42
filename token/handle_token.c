@@ -18,7 +18,10 @@ t_token	*ft_add_new_token(char *value, int mark, t_token_type type)
 
 	new_token = (t_token *)ft_calloc(sizeof(t_token), 1);
 	if (!new_token)
+	{
+		free(value);
 		return (NULL);
+	}
 	new_token->value = value;
 	new_token->type = type;
 	new_token->quotation_mark = mark;

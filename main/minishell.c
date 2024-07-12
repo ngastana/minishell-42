@@ -53,6 +53,7 @@ void	take(char *input, t_mini *mini)
 		free(input);
 		ft_clear(mini->enviroment);
 		ft_clear(mini->export);
+		ft_clear_token(&mini->token);
 		free(mini);
 		rl_clear_history();
 		exit (1);

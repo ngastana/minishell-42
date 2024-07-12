@@ -63,9 +63,11 @@ void	create_child(t_mini *cur_mini)
 	int		original_stdout;
 	int		original_stdin;
 	pid_t	pid;
+	t_token	*tmp_token;
 	int		count_pipex;
 
 	count_pipex = 0;
+	tmp_token = cur_mini->token;
 	original_stdout = dup(STDOUT_FILENO);
 	original_stdin = dup(STDIN_FILENO);
 	while (count_pipex <= cur_mini->nbr_pipex)
@@ -100,13 +102,13 @@ void	create_child(t_mini *cur_mini)
 			dup2(cur_mini->fd[0], STDIN_FILENO);
 			close(cur_mini->fd[0]);
 		}
-		if (cur_mini->token->type == T_GREAT || cur_mini->token->type == T_LESS)
-			cur_mini->token = cur_mini->token->next->next;
-		if (cur_mini->token && cur_mini->token->type == T_DLESS && cur_mini->token->next->next)
-			cur_mini->token = cur_mini->token->next->next;
-		if (cur_mini->token && ft_is_builtin(cur_mini->token->value))
-			ft_exec_builtin(cur_mini, cur_mini->token);
-		else if (cur_mini->token && is_command(cur_mini))
+		if (tmp_token->type == T_GREAT || tmp_token->type == T_LESS)
+			tmp_token = tmp_token->next->next;
+		if (tmp_token && tmp_token->type == T_DLESS && tmp_token->next->next)
+			tmp_token = tmp_token->next->next;
+		if (tmp_token && ft_is_builtin(tmp_token->value))
+			ft_exec_builtin(cur_mini, tmp_token);
+		else if (tmp_token && is_command(cur_mini))
 		{
 			pid = fork();
 			signal(SIGINT, handle_sigint_2);
@@ -125,10 +127,10 @@ void	create_child(t_mini *cur_mini)
 				g_status = 130;
 			signal_handlers();
 		}
-		while (cur_mini->token && cur_mini->token->type != T_PIPE)
-			cur_mini->token = cur_mini->token->next;
-		if (cur_mini->token && cur_mini->token->type == T_PIPE)
-			cur_mini->token = cur_mini->token->next;
+		while (tmp_token && tmp_token->type != T_PIPE)
+			tmp_token = tmp_token->next;
+		if (tmp_token && tmp_token->type == T_PIPE)
+			tmp_token = tmp_token->next;
 		count_pipex++;
 		dup2(original_stdout, STDOUT_FILENO);
 		dup2(original_stdin, STDIN_FILENO);
