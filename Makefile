@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+         #
+#    By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 14:58:43 by ngastana          #+#    #+#              #
-#    Updated: 2024/07/11 14:57:17 by emunoz           ###   ########.fr        #
+#    Updated: 2024/07/13 16:19:47 by ngastana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRC =	./main/minishell.c \
 
 OBJ = $(SRC:.c=.o)
 
-FLAGS = -Wall -Wextra -Werror -g3 -fPIE -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g3 -fPIE
 READFLAG =  -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
 READINCLUDE = -I/Users/$(USER)/.brew/opt/readline/include
 

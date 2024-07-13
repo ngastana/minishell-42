@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:26:43 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 11:42:30 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/13 14:28:20 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,36 @@ int	has_redirection(t_mini *mini)
 		else if (has_redirection_utils(mini, current_token) == 0)
 			return (0);
 		current_token = current_token->next;
+	}
+	return (1);
+}
+
+int do_redirection(t_mini *mini, int count_pipex)
+{
+	if (!has_redirection(mini))
+		return (0);
+	if (count_pipex < mini->nbr_pipex)
+		if (pipe(mini->fd) < 0)
+			return(printf("Error doing pipe\n"), 0);
+	if (mini->outfile > 1)
+	{
+		dup2(mini->outfile, STDOUT_FILENO);
+		close(mini->outfile);
+	}
+	else if (mini->nbr_pipex != count_pipex)
+	{
+		dup2(mini->fd[1], STDOUT_FILENO);
+		close(mini->fd[1]);
+	}
+	if (mini->infile > 1)
+	{
+		dup2(mini->infile, STDIN_FILENO);
+		close(mini->infile);
+	}
+	else if (count_pipex != 0)
+	{
+		dup2(mini->fd[0], STDIN_FILENO);
+		close(mini->fd[0]);
 	}
 	return (1);
 }

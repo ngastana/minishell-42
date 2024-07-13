@@ -6,7 +6,7 @@
 /*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:59:42 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 22:06:32 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/13 14:17:12 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ static	int	ft_child_utils(t_mini *cur_mini)
 		if (access(location, X_OK) == 0)
 		{
 			if (execve(location, cur_mini->comands, cur_mini->enviroment) == -1)
+			{
 				printf("Error execve\n");
+				g_status = 127;
+			}
 			free(location);
 			free(tmp);
 			ft_clear(cur_mini->comands);
@@ -73,36 +76,8 @@ void	create_child(t_mini *cur_mini)
 	original_stdin = dup(STDIN_FILENO);
 	while (count_pipex <= cur_mini->nbr_pipex)
 	{
-		if (!has_redirection(cur_mini))
+		if (!do_redirection(cur_mini, count_pipex))
 			return ;
-		if (count_pipex < cur_mini->nbr_pipex)
-		{
-			if (pipe(cur_mini->fd) < 0)
-			{
-				printf("Error doing pipe\n");
-				return ;
-			}
-		}
-		if (cur_mini->outfile > 1)
-		{
-			dup2(cur_mini->outfile, STDOUT_FILENO);
-			close(cur_mini->outfile);
-		}
-		else if (cur_mini->nbr_pipex != count_pipex)
-		{
-			dup2(cur_mini->fd[1], STDOUT_FILENO);
-			close(cur_mini->fd[1]);
-		}
-		if (cur_mini->infile > 1)
-		{
-			dup2(cur_mini->infile, STDIN_FILENO);
-			close(cur_mini->infile);
-		}
-		else if (count_pipex != 0)
-		{
-			dup2(cur_mini->fd[0], STDIN_FILENO);
-			close(cur_mini->fd[0]);
-		}
 		if (cur_mini->token->type == T_GREAT || cur_mini->token->type == T_LESS)
 			cur_mini->token = cur_mini->token->next->next;
 		if (cur_mini->token && cur_mini->token->type == T_DLESS && cur_mini->token->next->next)
