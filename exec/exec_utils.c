@@ -6,7 +6,7 @@
 /*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:59:42 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 20:27:10 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/13 12:34:28 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ static int	ft_is_command_utils(t_mini *cur_mini, char *aux, int i)
 		g_status = 127;
 		printf("%s: command not found\n", aux);
 		free(aux);
-		return (0);
 		ft_clear(cur_mini->location_paths);
+		return (0);
 	}
 	ft_clear(cur_mini->location_paths);
 	free(aux);

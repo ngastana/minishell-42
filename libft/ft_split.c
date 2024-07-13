@@ -6,7 +6,7 @@
 /*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:03:20 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 09:58:22 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/13 12:20:41 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	clear(char **matrix)
 	free (matrix);
 }
 
-static	int	diferentes(char const *s, char c)
+static	int	differents(char const *s, char c)
 {
 	int	divisor;
 	int	i;
@@ -62,7 +62,7 @@ static	int	diferentes(char const *s, char c)
 	return (divisor);
 }
 
-char	**rellena(char **matrix, const char *s, char c)
+char	**fill(char **matrix, const char *s, char c)
 {
 	int		j;
 	int		m;
@@ -95,11 +95,11 @@ char	**ft_split(char const *s, char c)
 
 	if (s == NULL)
 		return (NULL);
-	matrix = malloc(sizeof(char *) * (diferentes(s, c) + 1));
+	matrix = malloc(sizeof(char *) * (differents(s, c) + 1));
 	if (matrix == NULL)
 		return (NULL);
-	matrix[diferentes(s, c)] = NULL;
-	return (rellena (matrix, s, c));
+	matrix[differents(s, c)] = NULL;
+	return (fill (matrix, s, c));
 }
 
 /* int	main(void)

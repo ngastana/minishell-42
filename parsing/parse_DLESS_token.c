@@ -6,7 +6,7 @@
 /*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 11:41:15 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 21:50:37 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/13 12:40:23 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	dless_function(t_token	*cur_token)
 	}
 	while(1)
 	{
-		input = readline(BOLD YELLOW "> " RESET);
+		input = readline(BOLD YELLOW "heredoc> " RESET);
 		if (!ft_compare(input, cur_token->value))
  			return (free(input), 0);
 		free(input);
