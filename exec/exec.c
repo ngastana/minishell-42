@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:59:42 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/13 14:17:12 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/13 20:46:54 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,42 @@ void	ft_child(t_mini *cur_mini)
 	return ;
 }
 
+void	ft_fork(t_mini *cur_mini)
+{
+	pid_t	pid;
+
+	pid = fork();
+	signal(SIGINT, handle_sigquit);
+	if (pid == -1)
+		return ;
+	else if (pid == 0)
+	{
+		ft_child(cur_mini);
+		exit (EXIT_SUCCESS);
+	}
+	else
+		waitpid(pid, &g_status, 0);
+	if (g_status == 256)
+		g_status = 1;
+	else if (g_status == 2)
+		g_status = 130;
+	signal_handlers();
+}
+
+void	ft_special_cases(t_mini *cur_mini, int ostdout, int ostdin)
+{
+	while (cur_mini->token && cur_mini->token->type != T_PIPE)
+		cur_mini->token = cur_mini->token->next;
+	if (cur_mini->token && cur_mini->token->type == T_PIPE)
+		cur_mini->token = cur_mini->token->next;
+	dup2(ostdout, STDOUT_FILENO);
+	dup2(ostdin, STDIN_FILENO);
+}
+
 void	create_child(t_mini *cur_mini)
 {
 	int		original_stdout;
 	int		original_stdin;
-	pid_t	pid;
 	int		count_pipex;
 
 	count_pipex = 0;
@@ -80,40 +111,17 @@ void	create_child(t_mini *cur_mini)
 			return ;
 		if (cur_mini->token->type == T_GREAT || cur_mini->token->type == T_LESS)
 			cur_mini->token = cur_mini->token->next->next;
-		if (cur_mini->token && cur_mini->token->type == T_DLESS && cur_mini->token->next->next)
+		if (cur_mini->token && cur_mini->token->type == T_DLESS
+			&& cur_mini->token->next->next)
 			cur_mini->token = cur_mini->token->next->next;
 		if (cur_mini->token && ft_is_builtin(cur_mini->token->value))
 			ft_exec_builtin(cur_mini, cur_mini->token);
 		else if (cur_mini->token && is_command(cur_mini))
-		{
-			pid = fork();
-			signal(SIGINT, handle_sigint_2);
-			if (pid == -1)
-				return ;
-			else if (pid == 0)
-			{
-				ft_child(cur_mini);
-				exit (EXIT_SUCCESS);
-			}
-			else
-				waitpid(pid, &g_status, 0);
-			if (g_status == 256)
-				g_status = 1;
-			else if (g_status == 2)
-				g_status = 130;
-			signal_handlers();
-		}
-		while (cur_mini->token && cur_mini->token->type != T_PIPE)
-			cur_mini->token = cur_mini->token->next;
-		if (cur_mini->token && cur_mini->token->type == T_PIPE)
-			cur_mini->token = cur_mini->token->next;
+			ft_fork(cur_mini);
+		ft_special_cases(cur_mini, original_stdout, original_stdin);
 		count_pipex++;
-		dup2(original_stdout, STDOUT_FILENO);
-		dup2(original_stdin, STDIN_FILENO);
 	}
-	close(original_stdout);
-	close(original_stdin);
-	return ;
+	return (close(original_stdout), close(original_stdin), (void)0);
 }
 
 static int	count_pipex(t_mini *mini)
@@ -142,5 +150,8 @@ void	exec(t_mini *mini)
 	tmp_token = cur_mini->token;
 	create_child(cur_mini);
 	cur_mini->token = tmp_token;
+	if (!ft_compare(cur_mini->token->value, "cat")
+		|| !ft_compare(cur_mini->token->value, "grep"))
+		printf("\n");
 	return ;
 }

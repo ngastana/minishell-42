@@ -6,7 +6,7 @@
 /*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:32:21 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 10:56:18 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/13 20:51:42 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static void	go_home(t_mini *mini)
 		update_env(mini, "PWD", home);
 	g_status = 0;
 }
-// Hay que acortar
 
 int	ft_cd(t_mini *mini, t_token *current)
 {

@@ -6,7 +6,7 @@
 /*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:17:13 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/11 14:40:06 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/13 20:22:26 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ void	handle_sigint(int sig)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-}
-
-void	handle_sigint_2(int sig)
-{
-	(void) sig;
-	ft_putstr_fd("\n", 1);
 }
 
 void	handle_sigquit(int sig)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_DLESS_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 11:41:15 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/13 16:15:27 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:19:10 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	dless_function(t_token	*cur_token)
 {
-	char *input;
+	char	*input;
+
 	if (cur_token == NULL)
 	{
 		g_status = 2;
@@ -25,7 +26,7 @@ static int	dless_function(t_token	*cur_token)
 	{
 		input = readline(BOLD YELLOW "> " RESET);
 		if (!ft_compare(input, cur_token->value))
- 			return (free(input), 0);
+			return (free(input), 0);
 		free(input);
 	}
 	return (0);
@@ -44,8 +45,7 @@ int	parse_dless_token(t_mini *mini)
 				&& cur_token->next->type != T_IDENTIFIER)
 			{
 				g_status = 2;
-				printf("syntax error near unexpected token `newline'\n");
-				return (1);
+				return (printf("syntax error near unexpected token `newline'\n"), 1);
 			}
 			else
 			{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:26:43 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/13 14:28:20 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/13 19:30:18 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,12 @@ int	has_redirection(t_mini *mini)
 	return (1);
 }
 
-int do_redirection(t_mini *mini, int count_pipex)
+int	do_redirection(t_mini *mini, int count_pipex)
 {
 	if (!has_redirection(mini))
 		return (0);
-	if (count_pipex < mini->nbr_pipex)
-		if (pipe(mini->fd) < 0)
-			return(printf("Error doing pipe\n"), 0);
+	if (count_pipex < mini->nbr_pipex && pipe(mini->fd) < 0)
+		return (printf("Error doing pipe\n"), 0);
 	if (mini->outfile > 1)
 	{
 		dup2(mini->outfile, STDOUT_FILENO);

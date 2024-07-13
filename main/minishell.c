@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:21:13 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/13 18:52:01 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:02:53 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	main(int argc, char **argv, char **env)
 	mini = NULL;
 	initialize_minishell(&mini, env);
 	signal_handlers();
-	printf("PID del programa: %d\n", getpid());
 	while (1)
 	{
 		input = readline(BOLD YELLOW "Minishell-3.2$ " RESET);
@@ -85,13 +84,11 @@ int	main(int argc, char **argv, char **env)
 				continue ;
 			}
 			exec(mini);
-			ft_clear_token(&mini->token);
 			free(input);
+			ft_clear_token(&mini->token);
 		}
 		else
 			handle_eof(mini, input);
-		ft_clear_token(&mini->token);
 	}
-	free(mini);
 	return (0);
 }
