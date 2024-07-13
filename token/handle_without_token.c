@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_without_token.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 14:23:41 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/11 15:10:29 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/13 11:49:16 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	ft_without_token(char **input, t_token **token)
 	else
 		value = ft_substr(tmp_input, 0, i);
 	tmp_input = NULL;
+	free (tmp_input);
 	if (!value)
 		return (0);
 	new_token = ft_add_new_token(value, mark, T_IDENTIFIER);

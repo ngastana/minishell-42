@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:40:54 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 11:29:57 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/13 11:13:34 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ char	**create_matrix(char **env, int flag);
 
 /*EXER_REDIR*/
 int		has_redirection(t_mini *mini);
+int 	do_redirection(t_mini *mini, int count_pipex);
 
 /*EXEC_UTILS*/
 int		is_command(t_mini *cur_mini);

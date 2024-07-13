@@ -6,7 +6,7 @@
 /*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:59:42 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 22:06:32 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/13 11:13:24 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,46 +60,18 @@ void	ft_child(t_mini *cur_mini)
 
 void	create_child(t_mini *cur_mini)
 {
-	int		original_stdout;
-	int		original_stdin;
 	pid_t	pid;
 	int		count_pipex;
-
+	int		original_stdout;
+	int		original_stdin;
+	
 	count_pipex = 0;
 	original_stdout = dup(STDOUT_FILENO);
 	original_stdin = dup(STDIN_FILENO);
 	while (count_pipex <= cur_mini->nbr_pipex)
 	{
-		if (!has_redirection(cur_mini))
+		if (!do_redirection(cur_mini, count_pipex))
 			return ;
-		if (count_pipex < cur_mini->nbr_pipex)
-		{
-			if (pipe(cur_mini->fd) < 0)
-			{
-				printf("Error doing pipe\n");
-				return ;
-			}
-		}
-		if (cur_mini->outfile > 1)
-		{
-			dup2(cur_mini->outfile, STDOUT_FILENO);
-			close(cur_mini->outfile);
-		}
-		else if (cur_mini->nbr_pipex != count_pipex)
-		{
-			dup2(cur_mini->fd[1], STDOUT_FILENO);
-			close(cur_mini->fd[1]);
-		}
-		if (cur_mini->infile > 1)
-		{
-			dup2(cur_mini->infile, STDIN_FILENO);
-			close(cur_mini->infile);
-		}
-		else if (count_pipex != 0)
-		{
-			dup2(cur_mini->fd[0], STDIN_FILENO);
-			close(cur_mini->fd[0]);
-		}
 		if (cur_mini->token->type == T_GREAT || cur_mini->token->type == T_LESS)
 			cur_mini->token = cur_mini->token->next->next;
 		if (cur_mini->token && cur_mini->token->type == T_DLESS && cur_mini->token->next->next)
