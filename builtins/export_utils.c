@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:06:56 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 11:16:30 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/13 18:54:51 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ int	search_in_matrix(char *str, char **export)
 
 int	check_value(char *str)
 {
-	if (ft_isalpha(str[0]) || str[0] == '_')
+	if (str && (ft_isalpha(str[0]) || str[0] == '_'))
 		return (1);
+	if (!str)
+		return (printf(" export:': not a valid identifier\n"), 0);
 	return (printf(" export: `%c': not a valid identifier\n", str[0]), 0);
 }
 

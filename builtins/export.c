@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 16:09:42 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 11:24:25 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/13 17:16:52 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	**create_matrix(char **env, int flag)
 	if (flag == 0)
 		while (env[++i +1] != NULL)
 			export[i] = ft_strdup(env[i]);
-	else
+	else if (env[i] == NULL)
 		while (env[++i] != NULL)
 			export[i] = ft_strdup(env[i]);
 	return (export);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana  < ngastana@student.42urduliz.    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:10:37 by ngastana          #+#    #+#             */
-/*   Updated: 2024/03/06 09:58:21 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/13 18:49:08 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_cuentame(int n)
+int	ft_count_me(int n)
 {
 	int	len;
 
@@ -37,7 +37,7 @@ char	*ft_itoa(int n)
 	char	*num;
 	int		len;
 
-	len = ft_cuentame(n);
+	len = ft_count_me(n);
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
 	num = (char *)malloc(sizeof(char) * (len + 1));
