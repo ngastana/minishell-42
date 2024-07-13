@@ -41,11 +41,11 @@ int	parse_dless_token(t_mini *mini)
 	{
 		if (cur_token->type == T_DLESS)
 		{
-			if (cur_token->next != NULL
-				&& cur_token->next->type != T_IDENTIFIER)
+			if (cur_token->next != NULL && cur_token->next->type != 0)
 			{
 				g_status = 2;
-				return (printf("syntax error near unexpected token `newline'\n"), 1);
+				return (printf("syntax error near unexpected token `newline'\n")
+					, 1);
 			}
 			else
 			{

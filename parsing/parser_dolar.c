@@ -75,7 +75,8 @@ int	parser_dolar(t_mini *mini)
 						if (!ft_strncmp(cur_token->value, "$?", 2))
 						{
 							name = ft_itoa(g_status);
-							tmp = ft_substr(cur_token->value, 2, ft_strlen(cur_token->value));
+							tmp = ft_substr(cur_token->value, 2,
+									ft_strlen(cur_token->value));
 							true_value = ft_strjoin(name, tmp);
 							free (name);
 							free (tmp);
