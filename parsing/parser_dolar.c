@@ -6,7 +6,7 @@
 /*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 12:04:36 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/13 18:35:46 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:19:47 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ int	parser_dolar(t_mini *mini)
 	int		i;
 	char	*name;
 	char	*true_value;
-	char 	*tmp;
-	char 	*tmp2;
+	char	*tmp;
 
 	cur_token = mini->token;
 	while (cur_token)
@@ -75,10 +74,10 @@ int	parser_dolar(t_mini *mini)
 						i++;
 						if (!ft_strncmp(cur_token->value, "$?", 2))
 						{
-							tmp2 = ft_itoa(g_status);
-							tmp = ft_substr(cur_token->value, 2, ft_strlen(cur_token->value));							
-							true_value = ft_strjoin(tmp2, tmp);
-							free (tmp2);
+							name = ft_itoa(g_status);
+							tmp = ft_substr(cur_token->value, 2, ft_strlen(cur_token->value));
+							true_value = ft_strjoin(name, tmp);
+							free (name);
 							free (tmp);
 						}
 						else
