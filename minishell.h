@@ -127,6 +127,7 @@ int		ft_echo(t_token *token);
 int		ft_cd(t_mini *mini, t_token *current);
 int		ft_exit(t_mini *mini);
 int		ft_unset(t_mini *mini, t_token *token);
+
 /*EXEC_BUINTIN_EXPORT*/
 int		ft_export(t_mini *mini, t_token *token);
 void	export_sort(char **export);
@@ -141,16 +142,17 @@ int		has_redirection(t_mini *mini);
 int		do_redirection(t_mini *mini, int count_pipex);
 
 /*EXEC_UTILS*/
-int		is_command(t_mini *cur_mini);
-char	*get_comands(t_token *cur_token);
-char	*find_path(char **envp);
+int		ft_count_pipex(t_mini *mini);
+char	*ft_get_comands(t_token *cur_token);
+char	*ft_find_path(char **envp);
+int		ft_is_command(t_mini *cur_mini);
+void	ft_special_cases(t_mini *cur_mini, int ostdout, int ostdin);
 
 /*SIGNALS*/
 void	signal_handlers(void);
 void	handle_sigint(int sig);
 void	handle_sigquit(int sig);
 void	handle_eof(t_mini *mini, char *input);
-void	handle_sigint_2(int sig);
 
 /*CLEANING*/
 void	ft_clean(t_mini *mini);

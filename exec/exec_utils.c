@@ -12,7 +12,23 @@
 
 #include "../minishell.h"
 
-char	*find_path(char **envp)
+int	ft_count_pipex(t_mini *mini)
+{
+	t_token	*tmp_token;
+	int		i;
+
+	tmp_token = mini->token;
+	i = 0;
+	while (tmp_token)
+	{
+		if (tmp_token->type == T_PIPE)
+			i++;
+		tmp_token = tmp_token->next;
+	}
+	return (i);
+}
+
+char	*ft_find_path(char **envp)
 {
 	int	i;
 	int	j;
@@ -28,7 +44,7 @@ char	*find_path(char **envp)
 	return (ft_strdup(envp[i] + 5));
 }
 
-char	*get_comands(t_token *cur_token)
+char	*ft_get_comands(t_token *cur_token)
 {
 	char	*str1;
 	char	*temp;
@@ -54,63 +70,12 @@ char	*get_comands(t_token *cur_token)
 	return (str1);
 }
 
-static int	ft_is_command_utils(t_mini *cur_mini, char *aux, int i)
+void	ft_special_cases(t_mini *cur_mini, int ostdout, int ostdin)
 {
-	free(cur_mini->path);
-	if (cur_mini->location_paths[i] == NULL && cur_mini->token->type != T_DLESS)
-	{
-		g_status = 127;
-		printf("%s: command not found\n", aux);
-		free(aux);
-		ft_clear(cur_mini->location_paths);
-		return (0);
-	}
-	ft_clear(cur_mini->location_paths);
-	free(aux);
-	return (1);
-}
-
-int	is_command(t_mini *cur_mini)
-{
-	char	*location;
-	char	*tmp;
-	char	*aux;
-	int		i;
-
-	location = NULL;
-	tmp = NULL;
-	i = 0;
-	aux = get_comands(cur_mini->token);
-	cur_mini->comands = ft_split(aux, ' ');
-	cur_mini->path = find_path(cur_mini->enviroment);
-	if (!cur_mini->path)
-	{
-		g_status = 127;
-		printf("%s: Not such file or directory\n", cur_mini->comands[0]);
-		ft_clear(cur_mini->comands);
-		free(aux);
-		return (0);
-	}
-	cur_mini->location_paths = ft_split(cur_mini->path, ':');
-	while (cur_mini->location_paths[i] != NULL)
-	{
-		tmp = ft_strjoin(cur_mini->location_paths[i], "/");
-		if (cur_mini->comands)
-			location = ft_strjoin(tmp, cur_mini->comands[0]);
-		if (access(location, X_OK) == 0)
-		{
-			free(aux);
-			ft_clear(cur_mini->comands);
-			free(cur_mini->path);
-			ft_clear(cur_mini->location_paths);
-			free(tmp);
-			free(location);
-			return (1);
-		}
-		i++;
-		free(tmp);
-		free(location);
-	}
-	ft_clear(cur_mini->comands);
-	return (ft_is_command_utils(cur_mini, aux, i));
+	while (cur_mini->token && cur_mini->token->type != T_PIPE)
+		cur_mini->token = cur_mini->token->next;
+	if (cur_mini->token && cur_mini->token->type == T_PIPE)
+		cur_mini->token = cur_mini->token->next;
+	dup2(ostdout, STDOUT_FILENO);
+	dup2(ostdin, STDIN_FILENO);
 }

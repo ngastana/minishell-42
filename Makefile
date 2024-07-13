@@ -18,6 +18,7 @@ SRC =	./main/minishell.c \
 		./exec/exec_builtin.c \
 		./exec/exec_redir.c \
 		./exec/exec_utils.c \
+		./exec/exec_access.c \
 		./token/token.c \
 		./token/handle_token.c \
 		./token/token_utils.c \
