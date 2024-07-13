@@ -6,7 +6,7 @@
 /*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 11:41:15 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 21:50:37 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/13 12:40:23 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,20 @@
 
 static int	dless_function(t_token	*cur_token)
 {
+	char *input;
 	if (cur_token == NULL)
 	{
 		g_status = 2;
 		printf("syntax error near unexpected token `newline'\n");
 		return (1);
 	}
-	while (ft_compare(readline(BOLD YELLOW "> " RESET), cur_token->value))
-		write(1, "", 1);
+	while(1)
+	{
+		input = readline(BOLD YELLOW "heredoc> " RESET);
+		if (!ft_compare(input, cur_token->value))
+ 			return (free(input), 0);
+		free(input);
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:03:12 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 21:44:20 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/13 12:36:30 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	ft_clear(char **matrix)
 
 	m = 0;
 	if (!matrix)
+	{
+		free(matrix);
 		return ;
+	}
 	while (matrix[m] != NULL)
 	{
 		free (matrix[m]);

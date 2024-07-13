@@ -22,7 +22,10 @@ static	int	ft_child_utils(t_mini *cur_mini)
 	while (cur_mini->location_paths[i] != NULL)
 	{
 		tmp = ft_strjoin(cur_mini->location_paths[i], "/");
-		location = ft_strjoin(tmp, cur_mini->comands[0]);
+		if (cur_mini->token->type != T_DLESS)
+			location = ft_strjoin(tmp, cur_mini->comands[0]);
+		else
+			location = (char *)ft_calloc(sizeof(char), 1);
 		if (access(location, X_OK) == 0)
 		{
 			if (execve(location, cur_mini->comands, cur_mini->enviroment) == -1)
@@ -157,9 +160,12 @@ static int	count_pipex(t_mini *mini)
 void	exec(t_mini *mini)
 {
 	t_mini	*cur_mini;
+	t_token	*tmp_token;
 
 	cur_mini = mini;
 	cur_mini->nbr_pipex = count_pipex(cur_mini);
+	tmp_token = cur_mini->token;
 	create_child(cur_mini);
+	cur_mini->token = tmp_token;
 	return ;
 }

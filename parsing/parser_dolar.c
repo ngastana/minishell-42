@@ -50,8 +50,6 @@ static char	*ft_find_name(char **env, char *value)
 	return (this);
 }
 
-// Hay que acortar
-
 int	parser_dolar(t_mini *mini)
 {
 	t_token	*cur_token;
