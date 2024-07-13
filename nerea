@@ -1,0 +1,14 @@
+builtins
+cleaning.c
+cleaning.o
+exec
+libft
+libft.a
+main
+Makefile
+minishell
+minishell.h
+nerea
+parsing
+README.md
+token

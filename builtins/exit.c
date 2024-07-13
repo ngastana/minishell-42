@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:59:42 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/10 11:07:28 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/13 18:53:36 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 int	ft_exit(t_mini *mini)
 {
+	int x;
+	x = 0;
 	ft_putstr_fd("exit\n", 1);
+	if (mini->token->next)
+		x = ft_atoi(mini->token->next->value);
 	ft_clean(mini);
 	rl_clear_history();
-	exit (0);
+	exit (x);
 }

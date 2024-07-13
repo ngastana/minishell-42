@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
+/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:21:13 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/11 15:16:42 by emunoz           ###   ########.fr       */
+/*   Updated: 2024/07/13 18:52:01 by ngastana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	initialize_minishell(t_mini **mini, char **env)
 
 void	take(char *input, t_mini *mini)
 {
-	if (!input || ft_strncmp(input, "exit", 5) == 0)
+	if (!input)
 	{
 		ft_putstr_fd("exit\n", 1);
 		free(input);
@@ -80,7 +80,6 @@ int	main(int argc, char **argv, char **env)
 			mini->token = ft_token(input);
 			if (!mini->token || parse(mini) == 1)
 			{
-				g_status = 0;
 				free(input);
 				ft_clear_token(&mini->token);
 				continue ;
