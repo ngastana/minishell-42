@@ -32,6 +32,7 @@ SRC =	./main/minishell.c \
 		./builtins/env.c \
 		./builtins/pwd.c \
 		./builtins/cd.c \
+		./builtins/cd_utils.c \
 		./builtins/exit.c \
 		./builtins/export.c \
 		./builtins/export_sort.c \

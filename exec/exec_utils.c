@@ -79,3 +79,17 @@ void	ft_special_cases(t_mini *cur_mini, int ostdout, int ostdin)
 	dup2(ostdout, STDOUT_FILENO);
 	dup2(ostdin, STDIN_FILENO);
 }
+
+char	*build_executable_path(t_mini *cur_mini, int i)
+{
+	char	*tmp;
+	char	*location;
+
+	tmp = ft_strjoin(cur_mini->location_paths[i], "/");
+	if (cur_mini->token->type != T_DLESS)
+		location = ft_strjoin(tmp, cur_mini->comands[0]);
+	else
+		location = (char *)ft_calloc(sizeof(char), 1);
+	free(tmp);
+	return (location);
+}

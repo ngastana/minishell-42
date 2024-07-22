@@ -147,6 +147,12 @@ char	*ft_get_comands(t_token *cur_token);
 char	*ft_find_path(char **envp);
 int		ft_is_command(t_mini *cur_mini);
 void	ft_special_cases(t_mini *cur_mini, int ostdout, int ostdin);
+char	*build_executable_path(t_mini *cur_mini, int i);
+
+/*CD_UTILS*/
+void	update_env(t_mini *mini, char *old_env, char *new_env);
+char	*get_envlst(t_mini *mini, char *new_env);
+void	go_home(t_mini *mini);
 
 /*SIGNALS*/
 void	signal_handlers(void);

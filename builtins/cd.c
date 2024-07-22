@@ -12,62 +12,91 @@
 
 #include "../minishell.h"
 
-static void	update_env(t_mini *mini, char *old_env, char *new_env)
+void	init_env_vars(t_mini *mini)
 {
-	char	*new_env_str;
-	int		i;
+	char	*cwd;
 
-	i = 0;
-	while (mini->enviroment[i]
-		&& (ft_strncmp(old_env, mini->enviroment[i], ft_strlen(old_env))))
-		i++;
-	if (mini->enviroment[i])
+	if (!search_in_matrix("OLDPWD", mini->enviroment))
+		mini->enviroment = add_to_matrix("OLDPWD", mini->enviroment);
+	if (!search_in_matrix("PWD", mini->enviroment))
 	{
-		new_env_str = malloc(sizeof(char) * (ft_strlen(old_env)
-					+ ft_strlen(new_env) + 1));
-		if (!new_env_str)
-			return ;
-		ft_strlcpy(new_env_str, mini->enviroment[i], ft_strlen(old_env) + 1);
-		new_env_str[ft_strlen(old_env)] = '=';
-		ft_strlcpy(new_env_str + ft_strlen(old_env) + 1,
-			new_env, ft_strlen(new_env) + 1);
-		free (mini->enviroment[i]);
-		mini->enviroment[i] = new_env_str;
+		cwd = getcwd(NULL, 0);
+		if (cwd)
+		{
+			mini->enviroment = add_to_matrix(ft_strjoin("PWD=", cwd),
+					mini->enviroment);
+			free(cwd);
+		}
 	}
 }
 
-static char	*get_envlst(t_mini *mini, char *new_env)
+int	handle_special_cases(t_mini *mini, t_token *current)
 {
-	int	i;
+	char	*oldpwd;
 
-	i = 0;
-	while (mini->enviroment[i])
+	if (!current || (current->value[0] == '~' && current->value[1] == '\0')
+		|| (current->value[0] == '-' && current->value[1] == '-'
+			&& current->value[2] == '\0'))
 	{
-		if (ft_strncmp(new_env, mini->enviroment[i], ft_strlen(new_env)) == 0)
-			return (mini->enviroment[i] + ft_strlen(new_env) + 1);
-		i++;
+		go_home(mini);
+		return (1);
 	}
-	return (NULL);
+	else if (current->value[0] == '-' && current->value[1] == '\0')
+	{
+		oldpwd = get_envlst(mini, "OLDPWD");
+		if (oldpwd)
+		{
+			update_env(mini, "PWD", oldpwd);
+			printf("%s\n", oldpwd);
+			chdir(oldpwd);
+		}
+		else
+			ft_putstr_fd("cd: OLDPWD not set\n", 2);
+		g_status = 0;
+		return (1);
+	}
+	return (0);
 }
 
-static void	go_home(t_mini *mini)
+int	update_pwd_and_oldpwd(t_mini *mini)
 {
-	char	*home;
+	char	*cwd;
+	char	*oldpwd;
 
-	update_env(mini, "OLDPWD", get_envlst(mini, "PWD"));
-	home = get_envlst(mini, "HOME");
-	if (!home)
+	oldpwd = get_envlst(mini, "PWD");
+	update_env(mini, "OLDPWD", oldpwd);
+	cwd = getcwd(NULL, 0);
+	if (cwd)
+	{
+		update_env(mini, "PWD", cwd);
+		free(cwd);
+		return (0);
+	}
+	else
 	{
 		g_status = 1;
-		ft_putstr_fd("cd: HOME not set\n", 2);
-		return ;
+		perror("cd");
+		return (1);
 	}
-	else if (chdir(home) == 0)
-		update_env(mini, "PWD", home);
-	g_status = 0;
 }
 
 int	ft_cd(t_mini *mini, t_token *current)
+{
+	init_env_vars(mini);
+	if (handle_special_cases(mini, current))
+		return (0);
+	if (chdir(current->value) != 0)
+	{
+		g_status = 1;
+		return (perror("cd"), 1);
+	}
+	if (update_pwd_and_oldpwd(mini) != 0)
+		return (1);
+	g_status = 0;
+	return (0);
+}
+
+/* int	ft_cd(t_mini *mini, t_token *current)
 {
 	char	*cwd;
 	char	*oldpwd;
@@ -121,4 +150,4 @@ int	ft_cd(t_mini *mini, t_token *current)
 	}
 	g_status = 0;
 	return (0);
-}
+} */

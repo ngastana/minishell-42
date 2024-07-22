@@ -12,20 +12,15 @@
 
 #include "../minishell.h"
 
-static	int	ft_execve(t_mini *cur_mini)
+static int	ft_execve(t_mini *cur_mini)
 {
 	int		i;
 	char	*location;
-	char	*tmp;
 
 	i = 0;
 	while (cur_mini->location_paths[i] != NULL)
 	{
-		tmp = ft_strjoin(cur_mini->location_paths[i], "/");
-		if (cur_mini->token->type != T_DLESS)
-			location = ft_strjoin(tmp, cur_mini->comands[0]);
-		else
-			location = (char *)ft_calloc(sizeof(char), 1);
+		location = build_executable_path(cur_mini, i);
 		if (access(location, X_OK) == 0)
 		{
 			if (execve(location, cur_mini->comands, cur_mini->enviroment) == -1)
@@ -34,13 +29,11 @@ static	int	ft_execve(t_mini *cur_mini)
 				g_status = 127;
 			}
 			free(location);
-			free(tmp);
 			ft_clear(cur_mini->comands);
 			return (1);
 		}
-		i++;
 		free(location);
-		free(tmp);
+		i++;
 	}
 	return (0);
 }
@@ -129,3 +122,36 @@ void	exec(t_mini *mini)
 		printf("\n");
 	return ;
 }
+
+/* static	int	ft_execve(t_mini *cur_mini)
+{
+	int		i;
+	char	*location;
+	char	*tmp;
+
+	i = 0;
+	while (cur_mini->location_paths[i] != NULL)
+	{
+		tmp = ft_strjoin(cur_mini->location_paths[i], "/");
+		if (cur_mini->token->type != T_DLESS)
+			location = ft_strjoin(tmp, cur_mini->comands[0]);
+		else
+			location = (char *)ft_calloc(sizeof(char), 1);
+		if (access(location, X_OK) == 0)
+		{
+			if (execve(location, cur_mini->comands, cur_mini->enviroment) == -1)
+			{
+				printf("Error execve\n");
+				g_status = 127;
+			}
+			free(location);
+			free(tmp);
+			ft_clear(cur_mini->comands);
+			return (1);
+		}
+		i++;
+		free(location);
+		free(tmp);
+	}
+	return (0);
+} */

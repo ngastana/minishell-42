@@ -35,7 +35,72 @@ int	ft_skip_quote(char *input, int *i)
 	return (0);
 }
 
+int	process_quotes_and_separators(char *tmp_input, int *mark, int *i)
+{
+	while (tmp_input[*i] && !ft_is_separator(tmp_input + *i))
+	{
+		if (ft_is_quote(tmp_input[*i]))
+		{
+			if (tmp_input[*i] == '\'')
+				*mark = 1;
+			else if (tmp_input[*i] == '"')
+				*mark = 2;
+			if (!ft_skip_quote(tmp_input, i))
+			{
+				g_status = 1;
+				printf("Close the quotation marks\n");
+				return (0);
+			}
+		}
+		else
+			(*i)++;
+	}
+	return (1);
+}
+
+int	create_new_token(char *tmp_input, int i, int mark, t_token **token)
+{
+	char	*value;
+	t_token	*new_token;
+
+	if (ft_strncmp(tmp_input, "/bin/", 5) == 0)
+		value = ft_substr(tmp_input, 5, ft_strlen(tmp_input));
+	else if (mark != 0)
+		value = ft_substr(tmp_input, 1, i - 2);
+	else
+		value = ft_substr(tmp_input, 0, i);
+	if (!value)
+		return (0);
+	new_token = ft_add_new_token(value, mark, T_IDENTIFIER);
+	if (!new_token)
+	{
+		free(value);
+		return (0);
+	}
+	return (ft_add_token(token, new_token), 1);
+}
+
 int	ft_without_token(char **input, t_token **token)
+{
+	char	*tmp_input;
+	int		i;
+	int		mark;
+
+	tmp_input = *input;
+	i = 0;
+	mark = 0;
+	if (!process_quotes_and_separators(tmp_input, &mark, &i))
+	{
+		ft_clear_token(token);
+		return (0);
+	}
+	if (!create_new_token(tmp_input, i, mark, token))
+		return (0);
+	*input += i;
+	return (1);
+}
+
+/* int	ft_without_token(char **input, t_token **token)
 {
 	char	*tmp_input;
 	int		i;
@@ -79,3 +144,4 @@ int	ft_without_token(char **input, t_token **token)
 	*input += i;
 	return (ft_add_token(token, new_token), 1);
 }
+ */

@@ -50,7 +50,68 @@ static char	*ft_find_name(char **env, char *value)
 	return (this);
 }
 
+int	handle_dollar_sign(t_token *cur_token, t_mini *mini, int i)
+{
+	char	*name;
+	char	*true_value;
+	char	*tmp;
+
+	if (!ft_strncmp(cur_token->value, "$?", 2))
+	{
+		name = ft_itoa(g_status);
+		tmp = ft_substr(cur_token->value, 2, ft_strlen(cur_token->value));
+		true_value = ft_strjoin(name, tmp);
+		free(name);
+		free(tmp);
+	}
+	else
+		true_value = ft_substr(cur_token->value, 0, i - 1);
+	name = ft_find_name(mini->enviroment, cur_token->value + i);
+	if (cur_token->value)
+		free(cur_token->value);
+	if (!name)
+	{
+		cur_token->value = true_value;
+		return (0);
+	}
+	cur_token->value = ft_strjoin(true_value, name);
+	free(true_value);
+	return (free(name), 0);
+}
+
+int	process_token(t_token *cur_token, t_mini *mini)
+{
+	int		i;
+
+	i = 0;
+	while (cur_token->value[i])
+	{
+		if (cur_token->value[i] == '$' && cur_token->quotation_mark != 1
+			&& cur_token->value[i + 1] != '\0')
+		{
+			i++;
+			return (handle_dollar_sign(cur_token, mini, i));
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	parser_dolar(t_mini *mini)
+{
+	t_token	*cur_token;
+
+	cur_token = mini->token;
+	while (cur_token)
+	{
+		if (cur_token->type == T_IDENTIFIER)
+			process_token(cur_token, mini);
+		cur_token = cur_token->next;
+	}
+	return (0);
+}
+
+/* int	parser_dolar(t_mini *mini)
 {
 	t_token	*cur_token;
 	int		i;
@@ -105,4 +166,4 @@ int	parser_dolar(t_mini *mini)
 		cur_token = cur_token->next;
 	}
 	return (0);
-}
+} */

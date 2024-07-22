@@ -61,7 +61,43 @@ void	take(char *input, t_mini *mini)
 		add_history(input);
 }
 
+void	process_input(char *input, t_mini *mini)
+{
+	mini->token = ft_token(input);
+	if (!mini->token || parse(mini) == 1)
+	{
+		free(input);
+		ft_clear_token(&mini->token);
+	}
+	else
+	{
+		exec(mini);
+		free(input);
+		ft_clear_token(&mini->token);
+	}
+}
+
 int	main(int argc, char **argv, char **env)
+{
+	char	*input;
+	t_mini	*mini;
+
+	((void)argc, (void)argv);
+	mini = NULL;
+	initialize_minishell(&mini, env);
+	signal_handlers();
+	while (1)
+	{
+		input = readline(BOLD YELLOW "Minishell-3.2$ " RESET);
+		if (input)
+			process_input(input, mini);
+		else
+			handle_eof(mini, input);
+	}
+	return (0);
+}
+
+/* int	main(int argc, char **argv, char **env)
 {
 	char	*input;
 	t_mini	*mini;
@@ -91,4 +127,4 @@ int	main(int argc, char **argv, char **env)
 			handle_eof(mini, input);
 	}
 	return (0);
-}
+} */
