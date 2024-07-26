@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   exec_access.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngastana < ngastana@student.42urduliz.c    +#+  +:+       +#+        */
+/*   By: emunoz < emunoz@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:59:42 by ngastana          #+#    #+#             */
-/*   Updated: 2024/07/13 12:34:28 by ngastana         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:50:11 by emunoz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_is_command(t_mini *cur_mini)
 		tmp = ft_strjoin(cur_mini->location_paths[i], "/");
 		if (cur_mini->comands)
 			location = ft_strjoin(tmp, cur_mini->comands[0]);
-		if (ft_access(aux, tmp, location, cur_mini) == 1)
+		if (ft_access(aux, location, tmp, cur_mini) == 1)
 			return (1);
 		i++;
 		free(tmp);
